@@ -1,0 +1,39 @@
+
+//#include "stdafx.h"
+#include <string>
+#include <iostream>
+#include <pthread.h>
+using namespace std;
+#define FALSE 0
+#define TRUE 1
+
+// Worker thread to print a message
+void *WorkerThreadTasker(void *Param)
+{
+  long count = (long) Param;
+	cout << "Welcome the worker thread" << count << endl;
+
+  // Work complete so delete the thread
+  pthread_exit (NULL);
+}
+
+int main()
+{
+	string userInput;
+  pthread_t Thread;
+  long i = 0;
+
+  cout << "Carry On? " << endl;
+	cin >> userInput;
+	while (userInput != "N")
+	{
+    i++;
+		// Start Thread
+		pthread_create(&Thread, NULL, WorkerThreadTasker, (void*)i);
+    cout << "Carry On? " << endl;
+	  cin >> userInput;
+	} ;
+	
+	return FALSE;
+}
+
